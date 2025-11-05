@@ -8,17 +8,17 @@ using namespace std;
 struct songData {
     string artist_name;
     string title;
-    string year;
+    double year;
     double artist_familiarity;
     double artist_hotttnesss;
-    double song_hotttness;
+    double song_hotttnesss;
     double tempo;
 };
 
 class songBase {
     std::vector<songData*> base;
 public:
-    std::vector<songData*> getsongData() {
+    std::vector<songData*>& getsongData() {
         return base;
     }
     void addRow(songData* row) {
