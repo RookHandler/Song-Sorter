@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#pragma once
 using namespace std;
 
 struct songData {
@@ -18,7 +19,7 @@ struct songData {
 class songBase {
     std::vector<songData*> base;
 public:
-    std::vector<songData*> getsongData() {
+    std::vector<songData*>& getsongData() {
         return base;
     }
     void addRow(songData* row) {

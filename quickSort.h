@@ -7,6 +7,7 @@
 #include <iostream>
 #include <algorithm>
 #include "songBase.h"
+#include <cmath>
 using namespace std;
 
 int partitionHotness(vector<songData*>& base, int low, int high) {
@@ -72,6 +73,29 @@ void quickSortFamiliarity(vector<songData*>& base, int low, int high) {
         int pi = partitionFamiliarity(base, low, high);
         quickSortFamiliarity(base, low, pi-1);
         quickSortFamiliarity(base, pi+1, high);
+    }
+
+}
+
+int partitionSongHotness(vector<songData*>& base, int low, int high) {
+    double pivot = base[high]->song_hotttnesss;
+    int i = low-1;
+    for (int j = low; j < high; j++) {
+        double val = base[j]->song_hotttnesss;
+        if (base[j]->song_hotttnesss <= pivot) {
+            i++;
+            swap(base[i], base[j]);
+        }
+    }
+    swap(base[i+1], base[high]);
+    return (i+1);
+}
+
+void quickSortSongHotness(vector<songData*>& base, int low, int high) {
+    if (low < high) {
+        int pi = partitionSongHotness(base, low, high);
+        quickSortSongHotness(base, low, pi-1);
+        quickSortSongHotness(base, pi+1, high);
     }
 
 }

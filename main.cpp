@@ -1,12 +1,15 @@
 #include "songBase.h"
 #include "menuText.h"
+#include "quickSort.h"
 #include <fstream>
 #include <iostream>
 #include <sstream>
 
 int main() {
     menuText menu;
+    songBase byArtist;
     songBase songBase;
+
     ifstream file("150kSongs.csv"); // ensure the working directory is the project folder or this won't run
     if (file.is_open()) { // creates songBase object
         string row;
@@ -18,6 +21,10 @@ int main() {
             istringstream stream(row);
 
             getline(stream, token, ','); // read row attributes
+            int firstName = token.find('/');
+            if (firstName != string::npos) {
+                token = token.substr(0, firstName-1);
+            }
             newRow->artist_name = token;
             getline(stream, token, ',');
             newRow->title = token;
@@ -28,7 +35,7 @@ int main() {
             getline(stream, token, ',');
             newRow->artist_hotttnesss = stod(token);
             getline(stream, token, ',');
-            newRow->song_hotttness = stod(token);
+            newRow->song_hotttnesss = stod(token);
             getline(stream, token, ',');
             newRow->tempo = stod(token);
 
@@ -54,17 +61,87 @@ int main() {
         if (menu.introSelection == "ARTIST") {
             cout << "What artist?" << ' ';
             cin >> menu.artist;
+            for (auto c : songBase.getsongData()) {
+                if (c->artist_name.find(menu.artist) != string::npos) {
+                    byArtist.addRow(c);
+                    cout << c->artist_name << endl;
+                }
+            }
             cout << "Search by..." << endl;
             cout << menu.getartistAttributeMenu();
+            cin >> menu.attributeSelection;
+            if (menu.attributeSelection == "3") {
+                quickSortTempo(byArtist.getsongData(), 0, byArtist.getsongData().size()-1);
+                cout << "Sorted by Tempo -" << endl;
+                for (int i = 0; i < 5; i++) {
+                    cout << i+1 << ". " << byArtist.getsongData()[i]->artist_name << " | Song: " << byArtist.getsongData()[i]->title << " | Tempo:" << byArtist.getsongData()[i]->tempo << endl;
+                }
+                cout << endl;
+            }
         }
         else cout << "Search by..." << endl << menu.getcatalogAttributeMenu();
         cin >> menu.attributeSelection;
         cout << "How many songs?" << ' ';
         cin >> menu.songNum;
+        while (stoi(menu.songNum) > 200) {
+            cout << "\nSong number must be less than 200! \nHow many songs? " << endl;
+            cin >> menu.songNum;
+        }
         cout << "MERGE or QUICK (sort)" << ' ';
         cin >> menu.sortType;
 
         // display results
+        if (menu.attributeSelection == "2") {
+            if (menu.sortType == "QUICK") {
+                quickSortFamiliarity(songBase.getsongData(), 0, songBase.getsongData().size()-1);
+                cout << "Sorted by Artist Familiarity -" << endl;
+                int count = 0;
+                vector<string> printed;
+                for (int i = 0; i < songBase.getsongData().size() && count < stoi(menu.songNum); i++) {
+                    if (find(printed.begin(), printed.end(), songBase.getsongData()[i]->artist_name) == printed.end()) {
+                        cout << count+1 << ". " << songBase.getsongData()[i]->artist_name << " | Song Title: " << songBase.getsongData()[i]->title << " | Artist Familiarity: " << songBase.getsongData()[i]->artist_familiarity << endl;
+                        count++;
+                        printed.push_back(songBase.getsongData()[i]->artist_name);
+                    }
+                }
+                cout << endl;
+            }
+            else if (menu.sortType == "Merge") {
+                cout << "Need Tyler's code" << endl;
+            }
+        }
+        else if (menu.attributeSelection == "3") {
+            if (menu.sortType == "QUICK") {
+                quickSortHotness(songBase.getsongData(), 0, songBase.getsongData().size()-1);
+                cout << "Sorted by Artist Hotness -" << endl;
+                int count = 0;
+                vector<string> printed;
+                for (int i = 0; i < songBase.getsongData().size() && count < stoi(menu.songNum); i++) {
+                    if (find(printed.begin(), printed.end(), songBase.getsongData()[i]->artist_name) == printed.end()) {
+                        cout << count+1 << ". " << songBase.getsongData()[i]->artist_name << " | Song Title: " << songBase.getsongData()[i]->title << " | Artist Hotness:" << songBase.getsongData()[i]->artist_hotttnesss << endl;
+                        count++;
+                        printed.push_back(songBase.getsongData()[i]->artist_name);
+                    }
+                }
+                cout << endl;
+            }
+            else if (menu.sortType == "MERGE") {
+                cout << "Need Tyler's code" << endl;
+            }
+        }
+        else if (menu.attributeSelection == "5") {
+            if (menu.sortType == "QUICK") {
+                quickSortTempo(songBase.getsongData(), 0, songBase.getsongData().size()-1);
+                cout << "Sorted by Tempo -" << endl;
+                for (int i = 0; i < stoi(menu.songNum); i++) {
+                    cout << i+1 << ". " << songBase.getsongData()[i]->artist_name << " | Song: " << songBase.getsongData()[i]->title << " | Tempo:" << songBase.getsongData()[i]->tempo << endl;
+                }
+                cout << endl;
+            }
+            else if (menu.sortType == "MERGE") {
+                cout << "Need Tyler's code" << endl;
+            }
+        }
 
         string search;
         cout << "Enter SEARCH to search again, or exit the program by any other input" << endl;

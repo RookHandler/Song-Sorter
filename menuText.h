@@ -1,6 +1,7 @@
 #ifndef SONG_SORTER_MENUTEXT_H
 #define SONG_SORTER_MENUTEXT_H
 #include <iostream>
+#pragma once
 
 using namespace std;
 
