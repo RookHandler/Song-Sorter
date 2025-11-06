@@ -11,7 +11,7 @@ struct songData {
     string year;
     double artist_familiarity;
     double artist_hotttnesss;
-    double song_hotttness;
+    double song_hotttnesss;
     double tempo;
 };
 
