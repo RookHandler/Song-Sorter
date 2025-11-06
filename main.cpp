@@ -1,9 +1,11 @@
 #include "songBase.h"
+#include "menuText.h"
 #include <fstream>
 #include <iostream>
 #include <sstream>
 
 int main() {
+    menuText menu;
     songBase songBase;
     ifstream file("150kSongs.csv"); // ensure the working directory is the project folder or this won't run
     if (file.is_open()) { // creates songBase object
@@ -35,11 +37,44 @@ int main() {
         }
         file.close();
     }
+    while (true) {
+        cout << menu.getintroMenu();
+        cin >> menu.introSelection;
+        while (menu.introSelection != "ARTIST" && menu.introSelection != "CATALOG" ) {
+            if (menu.introSelection == "CLOSESORTER") {
+                cout << menu.getexitMessage() << endl;
+                for (auto ptr : songBase.getsongData()) {
+                    delete ptr; // clean up pointers
+                }
+                return 0;
+            }
+            cout << "Not a valid selection, try again!" << endl;
+            cin >> menu.introSelection;
+        }
+        if (menu.introSelection == "ARTIST") {
+            cout << "What artist?" << ' ';
+            cin >> menu.artist;
+            cout << "Search by..." << endl;
+            cout << menu.getartistAttributeMenu();
+        }
+        else cout << "Search by..." << endl << menu.getcatalogAttributeMenu();
+        cin >> menu.attributeSelection;
+        cout << "How many songs?" << ' ';
+        cin >> menu.songNum;
+        cout << "MERGE or QUICK (sort)" << ' ';
+        cin >> menu.sortType;
 
-    // user interface goes here
+        // display results
 
-    for (auto ptr : songBase.getsongData()) {
-        delete ptr; // clean up pointers
+        string search;
+        cout << "Enter SEARCH to search again, or exit the program by any other input" << endl;
+        cin >> search;
+        if (search != "SEARCH") {
+            cout << menu.getexitMessage() << endl;
+            for (auto ptr : songBase.getsongData()) {
+                delete ptr; // clean up pointers
+            }
+            return 0;
+        }
     }
-    return 0;
 }
