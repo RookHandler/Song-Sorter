@@ -18,7 +18,7 @@ class menuText {
     "|||||||||||||||||||||||||||||||||||||||||||||||||||\n";
 
     string catalogAttributeMenu = "|||||||||||||||||||||||||||||||||||||||||||||||||||\n"
-    "| 1. Year                                         |\n"
+    "| 1. Alphabetical Title                           |\n"
     "| 2. Artist familiarity                           |\n"
     "| 3. Artist hotness                               |\n"
     "| 4. Song hotness                                 |\n"
@@ -26,7 +26,7 @@ class menuText {
     "|||||||||||||||||||||||||||||||||||||||||||||||||||\n";
 
     string artistAttributeMenu = "|||||||||||||||||||||||||||||||||||||||||||||||||||\n"
-    "| 1. Year                                         |\n"
+    "| 1. Alphabetical Title                           |\n"
     "| 2. Song hotness                                 |\n"
     "| 3. Tempo                                        |\n"
     "|||||||||||||||||||||||||||||||||||||||||||||||||||\n";

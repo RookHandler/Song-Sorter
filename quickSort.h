@@ -99,3 +99,24 @@ void quickSortSongHotness(vector<songData*>& base, int low, int high) {
     }
 
 }
+
+int partitionAlphabetical(vector<songData*>& base, int low, int high) {
+    string pivot = base[high]->title;
+    int i = low-1;
+    for (int j = low; j < high; j++) {
+        if (base[j]->title <= pivot) {
+            i++;
+            swap(base[i], base[j]);
+        }
+    }
+    swap(base[i+1], base[high]);
+    return (i+1);
+}
+
+void quickSortAlphabetical(vector<songData*>& base, int low, int high) {
+    if (low < high) {
+        int pi = partitionAlphabetical(base, low, high);
+        quickSortAlphabetical(base, low, pi-1);
+        quickSortAlphabetical(base, pi+1, high);
+    }
+}
