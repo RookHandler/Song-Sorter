@@ -2,6 +2,7 @@
 #include "menuText.h"
 #include "quickSort.h"
 #include "mergeSort.h"
+#include <chrono>
 #include <fstream>
 #include <iostream>
 #include <sstream>
@@ -92,8 +93,12 @@ int main() {
             if (menu.attributeSelection == "1") {
                 int songCount = 0;
                 if (menu.sortType == "QUICK") {
+                    auto timeStart = chrono::high_resolution_clock::now();
                     quickSortSongHotness(byArtist.getsongData(), 0, byArtist.getsongData().size()-1);
+                    auto timeEnd = chrono::high_resolution_clock::now();
+                    chrono::duration<double> totalTime = timeEnd - timeStart;
                     cout << "Sorted by Song Hotness -" << endl;
+                    cout << "Quick sort finished in " << totalTime.count() << " seconds." << endl;
                     int max = stoi(menu.songNum);
                     int num = 1;
                     for (int i = byArtist.getsongData().size()-1; i > byArtist.getsongData().size()-max-1 && i >= 0; i--) {
@@ -111,8 +116,12 @@ int main() {
                     cout << endl;
                 }
                 else if (menu.sortType == "MERGE") {
+                    auto timeStart = chrono::high_resolution_clock::now();
                     mergeSortSongHotness(byArtist.getsongData(), 0, byArtist.getsongData().size()-1);
+                    auto timeEnd = chrono::high_resolution_clock::now();
+                    chrono::duration<double> totalTime = timeEnd - timeStart;
                     cout << "Sorted by Song Hotness -" << endl;
+                    cout << "Merge Sort finished in " << totalTime.count() << " seconds." << endl;
                     for (int i = 0; i < stoi(menu.songNum) && i < byArtist.getsongData().size(); i++) {
                         cout << i+1 << ". " << byArtist.getsongData()[i]->artist_name << " | Song: " << byArtist.getsongData()[i]->title << " | Song Hotness: " << byArtist.getsongData()[i]->song_hotttnesss << endl;
                         songCount++;
@@ -127,9 +136,13 @@ int main() {
                 int max = stoi(menu.songNum);
                 int num = 1;
                 if (menu.sortType == "QUICK") {
+                    auto timeStart = chrono::high_resolution_clock::now();
                     int checker = quickSortYear(byArtist.getsongData(), 0, byArtist.getsongData().size()-1);
+                    auto timeEnd = chrono::high_resolution_clock::now();
+                    chrono::duration<double> totalTime = timeEnd - timeStart;
                     if (checker != -1) {
                         cout << "Sorted by Year-" << endl;
+                        cout << "Quick Sort finished in " << totalTime.count() << " seconds." << endl;
                         for (int i = 0; i < max && i < byArtist.getsongData().size(); i++) {
                             if (byArtist.getsongData()[i]->year == 0.0) {
                                 max++;
@@ -149,8 +162,12 @@ int main() {
                     }
                 }
                 else if (menu.sortType == "MERGE") {
+                    auto timeStart = chrono::high_resolution_clock::now();
                     mergeSortYear(byArtist.getsongData(), 0, byArtist.getsongData().size()-1);
+                    auto timeEnd = chrono::high_resolution_clock::now();
+                    chrono::duration<double> totalTime = timeEnd - timeStart;
                     cout << "Sorted by year -" << endl;
+                    cout << "Merge sort finished in " << totalTime.count() << " seconds." << endl;
                     int num=1;
                     int max = stoi(menu.songNum);
                     for (int i=byArtist.getsongData().size()-1; i>= byArtist.getsongData().size()-max;i--) {
@@ -170,8 +187,12 @@ int main() {
             else if (menu.attributeSelection == "3") {
                 int songCount = 0;
                 if (menu.sortType == "QUICK") {
+                    auto timeStart = chrono::high_resolution_clock::now();
                     quickSortTempo(byArtist.getsongData(), 0, byArtist.getsongData().size()-1);
+                    auto timeEnd = chrono::high_resolution_clock::now();
+                    chrono::duration<double> elapsed_time = timeEnd - timeStart;
                     cout << "Sorted by Tempo -" << endl;
+                    cout << "Quick sort finished in " << elapsed_time.count() << " seconds." << endl;
                     for (int i = 0; i < stoi(menu.songNum) && i < byArtist.getsongData().size(); i++) {
                         cout << i+1 << ". " << byArtist.getsongData()[i]->artist_name << " | Song: " << byArtist.getsongData()[i]->title << " | Tempo:" << byArtist.getsongData()[i]->tempo << endl;
                         songCount++;
@@ -182,8 +203,12 @@ int main() {
                     cout << endl;
                 }
                 else if (menu.sortType == "MERGE") {
+                    auto timeStart = chrono::high_resolution_clock::now();
                     mergeSortTempo(byArtist.getsongData(), 0, byArtist.getsongData().size()-1);
+                    auto timeEnd = chrono::high_resolution_clock::now();
+                    chrono::duration<double> totalTime = timeEnd - timeStart;
                     cout << "Sorted by tempo -" << endl;
+                    cout << "Merge sort finished in " << totalTime.count() << " seconds." << endl;
                     for (int i = 0; i < stoi(menu.songNum) && i < byArtist.getsongData().size(); i++) {
                         cout << i+1 << ". " << byArtist.getsongData()[i]->artist_name << " | Song: " << byArtist.getsongData()[i]->title << " | Tempo:" << byArtist.getsongData()[i]->tempo << endl;
                     }
@@ -217,8 +242,12 @@ int main() {
             // display results
             if (menu.attributeSelection == "1") {
                 if (menu.sortType == "QUICK") {
+                    auto timeStart = chrono::high_resolution_clock::now();
                     quickSortSongHotness(songBase.getsongData(), 0, songBase.getsongData().size()-1);
+                    auto timeEnd = chrono::high_resolution_clock::now();
+                    chrono::duration<double> totalTime = timeEnd - timeStart;
                     cout << "Sorted by Song Hotness -" << endl;
+                    cout << "Quick sort finished in " << totalTime.count() << " seconds." << endl;
                     int count = 0;
                     vector<string> printed;
                     int num = 1;
@@ -238,8 +267,12 @@ int main() {
                     cout << endl;
                 }
                 else if (menu.sortType == "MERGE") {
+                    auto timeStart = chrono::high_resolution_clock::now();
                     mergeSortSongHotness(songBase.getsongData(), 0, songBase.getsongData().size()-1);
+                    auto timeEnd = chrono::high_resolution_clock::now();
+                    chrono::duration<double> totalTime = timeEnd - timeStart;
                     cout << "Sorted by Song Hotness -" << endl;
+                    cout << "Merge sort finished in " << totalTime.count() << " seconds." << endl;
                     for (int i = 0; i < stoi(menu.songNum) && i < songBase.getsongData().size(); i++) {
                         cout << i+1 << ". " << songBase.getsongData()[i]->artist_name << " | Song: " << songBase.getsongData()[i]->title << " | Song Hotness:" << songBase.getsongData()[i]->song_hotttnesss << endl;
                     }
@@ -248,8 +281,12 @@ int main() {
             }
             else if (menu.attributeSelection == "2") {
                 if (menu.sortType == "QUICK") {
+                    auto timeStart = chrono::high_resolution_clock::now();
                     quickSortFamiliarity(songBase.getsongData(), 0, songBase.getsongData().size()-1);
+                    auto timeEnd = chrono::high_resolution_clock::now();
+                    chrono::duration<double> totalTime = timeEnd - timeStart;
                     cout << "Sorted by Artist Familiarity -" << endl;
+                    cout << "Quick sort finished in " << totalTime.count() << " seconds." << endl;
                     int count = 0;
                     vector<string> printed;
                     for (int i = 0; i < songBase.getsongData().size() && count < stoi(menu.songNum); i++) {
@@ -262,8 +299,12 @@ int main() {
                     cout << endl;
                 }
                 else if (menu.sortType == "MERGE") {
+                    auto timeStart = chrono::high_resolution_clock::now();
                     mergeSortArtistFamiliarity(songBase.getsongData(), 0, songBase.getsongData().size() - 1); //runs merge sort
+                    auto timeEnd = chrono::high_resolution_clock::now();
+                    chrono::duration<double> totalTime = timeEnd - timeStart;
                     cout << "Sorted by Artist Familiarity -" << endl;
+                    cout << "Merge sort finished in " << totalTime.count() << " seconds." << endl;
                     int count = 0;
                     vector<string> printed;
                     for (int i = 0; i < songBase.getsongData().size() && count < stoi(menu.songNum); i++) {
@@ -278,8 +319,12 @@ int main() {
             }
             else if (menu.attributeSelection == "3") {
                 if (menu.sortType == "QUICK") {
+                    auto timeStart = chrono::high_resolution_clock::now();
                     quickSortHotness(songBase.getsongData(), 0, songBase.getsongData().size()-1);
+                    auto timeEnd = chrono::high_resolution_clock::now();
+                    chrono::duration<double> totalTime = timeEnd - timeStart;
                     cout << "Sorted by Artist Hotness -" << endl;
+                    cout << "Quick sort finished in " << totalTime.count() << " seconds." << endl;
                     int count = 0;
                     vector<string> printed;
                     for (int i = 0; i < songBase.getsongData().size() && count < stoi(menu.songNum); i++) {
@@ -291,8 +336,12 @@ int main() {
                     }
                 }
                 else if (menu.sortType == "MERGE") {
+                    auto timeStart = chrono::high_resolution_clock::now();
                     mergeSortArtistHotness(songBase.getsongData(), 0, songBase.getsongData().size()-1);
+                    auto timeEnd = chrono::high_resolution_clock::now();
+                    chrono::duration<double> totalTime = timeEnd - timeStart;
                     cout << "Sorted by Artist Hotness -" << endl;
+                    cout << "Merge sort finished in " << totalTime.count() << " seconds." << endl;
                     int count = 0;
                     vector<string> printed;
                     for (int i = 0; i < songBase.getsongData().size() && count < stoi(menu.songNum); i++) {
@@ -307,16 +356,24 @@ int main() {
             }
             else if (menu.attributeSelection == "4") {
                 if (menu.sortType == "QUICK") {
+                    auto timeStart = chrono::high_resolution_clock::now();
                     quickSortYear(songBase.getsongData(), 0, songBase.getsongData().size()-1);
+                    auto timeEnd = chrono::high_resolution_clock::now();
+                    chrono::duration<double> totalTime = timeEnd - timeStart;
                     cout << "Sorted by Year" << endl;
+                    cout << "Quick sort finished in " << totalTime.count() << " seconds." << endl;
                     for (int i = 0; i < stoi(menu.songNum); i++) {
                         cout << i+1 << ". " << songBase.getsongData()[i]->artist_name << " | Song: " << songBase.getsongData()[i]->title << " | Year:" << songBase.getsongData()[i]->year << endl;
                     }
                     cout << endl;
                 }
                 else if (menu.sortType == "MERGE") {
+                    auto timeStart = chrono::high_resolution_clock::now();
                     mergeSortYear(songBase.getsongData(), 0, songBase.getsongData().size()-1);
+                    auto timeEnd = chrono::high_resolution_clock::now();
+                    chrono::duration<double> totalTime = timeEnd - timeStart;
                     cout << "Sorted by Year -" << endl;
+                    cout << "Merge sort finished in " << totalTime.count() << " seconds." << endl;
                     int num=1;
                     int max = stoi(menu.songNum);
                     for (int i=songBase.getsongData().size()-1; i>= songBase.getsongData().size()-max;i--) {
@@ -332,16 +389,24 @@ int main() {
             }
             else if (menu.attributeSelection == "5") {
                 if (menu.sortType == "QUICK") {
+                    auto timeStart = chrono::high_resolution_clock::now();
                     quickSortTempo(songBase.getsongData(), 0, songBase.getsongData().size()-1);
+                    auto timeEnd = chrono::high_resolution_clock::now();
+                    chrono::duration<double> totalTime = timeEnd - timeStart;
                     cout << "Sorted by Tempo -" << endl;
+                    cout << "Quick sort finished in " << totalTime.count() << " seconds." << endl;
                     for (int i = 0; i < stoi(menu.songNum); i++) {
                         cout << i+1 << ". " << songBase.getsongData()[i]->artist_name << " | Song: " << songBase.getsongData()[i]->title << " | Tempo:" << songBase.getsongData()[i]->tempo << endl;
                     }
                     cout << endl;
                 }
                 else if (menu.sortType == "MERGE") {
+                    auto timeStart = chrono::high_resolution_clock::now();
                     mergeSortTempo(songBase.getsongData(), 0, songBase.getsongData().size()-1);
+                    auto timeEnd = chrono::high_resolution_clock::now();
+                    chrono::duration<double> totalTime = timeEnd - timeStart;
                     cout << "Sorted by Tempo -" << endl;
+                    cout << "Merge sort finished in " << totalTime.count() << " seconds." << endl;
                     for (int i = 0; i < stoi(menu.songNum); i++) {
                         cout << i+1 << ". " << songBase.getsongData()[i]->artist_name << " | Song: " << songBase.getsongData()[i]->title << " | Tempo:" << songBase.getsongData()[i]->tempo << endl;
                     }

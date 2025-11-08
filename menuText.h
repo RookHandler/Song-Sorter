@@ -14,6 +14,9 @@ class menuText {
     "|   Search entire catalog or just one artist?     |\n"
     "|        Type CATALOG or ARTIST to choose!        |\n"
     "|                                                 |\n"
+    "|   *Type Artist names with first letter*         |\n"
+    "|         *of each word capitalized*              |\n"
+    "|                                                 |\n"
     "|     Enter CLOSESORTER to close the program      |\n"
     "|||||||||||||||||||||||||||||||||||||||||||||||||||\n";
 
