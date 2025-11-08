@@ -9,7 +9,7 @@ using namespace std;
 struct songData {
     string artist_name;
     string title;
-    string year;
+    double year;
     double artist_familiarity;
     double artist_hotttnesss;
     double song_hotttnesss;

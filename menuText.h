@@ -18,16 +18,16 @@ class menuText {
     "|||||||||||||||||||||||||||||||||||||||||||||||||||\n";
 
     string catalogAttributeMenu = "|||||||||||||||||||||||||||||||||||||||||||||||||||\n"
-    "| 1. Alphabetical Title                           |\n"
+    "| 1. Song Hotness                                 |\n"
     "| 2. Artist familiarity                           |\n"
-    "| 3. Artist hotness                               |\n"
-    "| 4. Song hotness                                 |\n"
+    "| 3. Artist Hotness                               |\n"
+    "| 4. Year(Increasing Order)                       |\n"
     "| 5. Tempo                                        |\n"
     "|||||||||||||||||||||||||||||||||||||||||||||||||||\n";
 
     string artistAttributeMenu = "|||||||||||||||||||||||||||||||||||||||||||||||||||\n"
-    "| 1. Alphabetical Title                           |\n"
-    "| 2. Song hotness                                 |\n"
+    "| 1. Song Hotness                                 |\n"
+    "| 2. Year(Increasing Order)                       |\n"
     "| 3. Tempo                                        |\n"
     "|||||||||||||||||||||||||||||||||||||||||||||||||||\n";
 
@@ -49,6 +49,14 @@ public:
     }
     string getexitMessage() {
         return exitMessage;
+    }
+    static bool isNumber(string& input) {
+        for (char c : input) {
+            if (!std::isdigit(c)) {
+                return false;
+            }
+        }
+        return true;
     }
 };
 
