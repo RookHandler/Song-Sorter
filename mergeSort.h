@@ -69,6 +69,9 @@ void mergeSort(vector<songData*>& arr, int left, int right, double (*get_attribu
 }
 
 //getters for the data
+inline double getYear(const songData* data) {
+    return data->year;
+}
 inline double getArtistFamiliarity(const songData* data)  {
     return data->artist_familiarity;
 }
@@ -85,6 +88,10 @@ inline double getSongHotness(const songData* data)  {
 //these functions activate the merge sort and are the things being called on in main.cpp
 void mergeSortArtistFamiliarity(vector<songData*>& arr, int left, int right)  {
     mergeSort(arr, left, right, getArtistFamiliarity);
+}
+
+void mergeSortYear(vector<songData*>& arr, int left, int right) {
+    mergeSort(arr, left, right, getYear);
 }
 void mergeSortArtistHotness(vector<songData*>& arr, int left, int right)  {
     mergeSort(arr, left, right, getArtistHotness);
