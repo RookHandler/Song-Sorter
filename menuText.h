@@ -8,8 +8,8 @@ using namespace std;
 class menuText {
     string introMenu = "|||||||||||||||||||||||||||||||||||||||||||||||||||\n"
     "|               Welcome to Song Sorter!           |\n"
-    "| A project by Brooks Chandler, Tyler Schmaling,  |\n"
-    "|               and Kieran Parnell                |\n"
+    "| A project by Brooks Chandler, Kieran Parnell,   |\n"
+    "|               and Tyler Schmaling               |\n"
     "|                                                 |\n"
     "|   Search entire catalog or just one artist?     |\n"
     "|        Type CATALOG or ARTIST to choose!        |\n"
