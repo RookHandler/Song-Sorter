@@ -73,15 +73,27 @@ int main() {
             cout << "Search by..." << endl;
             cout << menu.getartistAttributeMenu();
             cin >> menu.attributeSelection;
+            while (menu.attributeSelection != "1" && menu.attributeSelection != "2" && menu.attributeSelection != "3") {
+                cout << "Not a valid selection, try again!" << endl;
+                cin >> menu.attributeSelection;
+            }
             cout << "How many songs?" << ' ';
             cin >> menu.songNum;
+            while (!menu.isNumber(menu.songNum) || stoi(menu.songNum) > 200) {
+                cout << "\nSong number must be less than 200! \nHow many songs? " << endl;
+                cin >> menu.songNum;
+            }
             cout << "MERGE or QUICK (sort)" << ' ';
             cin >> menu.sortType;
+            while (menu.sortType != "MERGE" && menu.sortType != "QUICK") {
+                cout << "Not a valid sort, enter MERGE or QUICK and try again!" << endl;
+                cin >> menu.sortType;
+            }
             if (menu.attributeSelection == "1") {
+                int songCount = 0;
                 if (menu.sortType == "QUICK") {
                     quickSortSongHotness(byArtist.getsongData(), 0, byArtist.getsongData().size()-1);
                     cout << "Sorted by Song Hotness -" << endl;
-                    int songCount = 0;
                     int max = stoi(menu.songNum);
                     int num = 1;
                     for (int i = byArtist.getsongData().size()-1; i > byArtist.getsongData().size()-max-1 && i >= 0; i--) {
@@ -99,60 +111,109 @@ int main() {
                     cout << endl;
                 }
                 else if (menu.sortType == "MERGE") {
-                    cout << "Need Tyler's Code" << endl;
+                    mergeSortSongHotness(byArtist.getsongData(), 0, byArtist.getsongData().size()-1);
+                    cout << "Sorted by Song Hotness -" << endl;
+                    for (int i = 0; i < stoi(menu.songNum) && i < byArtist.getsongData().size(); i++) {
+                        cout << i+1 << ". " << byArtist.getsongData()[i]->artist_name << " | Song: " << byArtist.getsongData()[i]->title << " | Song Hotness: " << byArtist.getsongData()[i]->song_hotttnesss << endl;
+                        songCount++;
+                    }
+                }
+                if (stoi(menu.songNum) > byArtist.getsongData().size()) {
+                    cout << "This Artist only has " << songCount << " songs." << endl;
                 }
             }
             else if (menu.attributeSelection == "2") {
+                int songCount = 0;
+                int max = stoi(menu.songNum);
+                int num = 1;
                 if (menu.sortType == "QUICK") {
                     int checker = quickSortYear(byArtist.getsongData(), 0, byArtist.getsongData().size()-1);
                     if (checker != -1) {
                         cout << "Sorted by Year-" << endl;
-                        int songCount = 0;
-                        for (int i = 0; i < stoi(menu.songNum) && i < byArtist.getsongData().size(); i++) {
-                            cout << i+1 << ". " << byArtist.getsongData()[i]->artist_name << " | Song: " << byArtist.getsongData()[i]->title << " | Year: " << byArtist.getsongData()[i]->year << endl;
+                        for (int i = 0; i < max && i < byArtist.getsongData().size(); i++) {
+                            if (byArtist.getsongData()[i]->year == 0.0) {
+                                max++;
+                                continue;
+                            }
+                            cout << num << ". " << byArtist.getsongData()[i]->artist_name << " | Song: " << byArtist.getsongData()[i]->title << " | Year: " << byArtist.getsongData()[i]->year << endl;
                             songCount++;
+                            num++;
                         }
                         if (stoi(menu.songNum) > byArtist.getsongData().size()) {
                             cout << "This Artist only has " << songCount << " songs." << endl;
                         }
                         cout << endl;
                     }
+                    else {
+                        cout << "Unknown song hotness from this Artist!" << endl;
+                    }
                 }
                 else if (menu.sortType == "MERGE") {
-                    cout << "Need Tyler's Code" << endl;
+                    mergeSortYear(byArtist.getsongData(), 0, byArtist.getsongData().size()-1);
+                    cout << "Sorted by year -" << endl;
+                    int num=1;
+                    int max = stoi(menu.songNum);
+                    for (int i=byArtist.getsongData().size()-1; i>= byArtist.getsongData().size()-max;i--) {
+                        if (byArtist.getsongData()[i]->year == 0.0) {
+                            max++;
+                            continue;
+                        }
+                        cout << num << ". " << byArtist.getsongData()[i]->artist_name << " | Song: " << byArtist.getsongData()[i]->title << " | Year: " << byArtist.getsongData()[i]->year << endl;
+                        num++;
+                    }
+                    cout << endl;
+                }
+                if (stoi(menu.songNum) > byArtist.getsongData().size()) {
+                    cout << "This Artist only has " << songCount << " songs." << endl;
                 }
             }
             else if (menu.attributeSelection == "3") {
+                int songCount = 0;
                 if (menu.sortType == "QUICK") {
                     quickSortTempo(byArtist.getsongData(), 0, byArtist.getsongData().size()-1);
                     cout << "Sorted by Tempo -" << endl;
-                    int songcount = 0;
                     for (int i = 0; i < stoi(menu.songNum) && i < byArtist.getsongData().size(); i++) {
                         cout << i+1 << ". " << byArtist.getsongData()[i]->artist_name << " | Song: " << byArtist.getsongData()[i]->title << " | Tempo:" << byArtist.getsongData()[i]->tempo << endl;
-                        songcount++;
+                        songCount++;
                     }
                     if (stoi(menu.songNum) > byArtist.getsongData().size()) {
-                        cout << "This Artist only has " << songcount << " songs." << endl;
+                        cout << "This Artist only has " << songCount << " songs." << endl;
                     }
                     cout << endl;
                 }
                 else if (menu.sortType == "MERGE") {
-                    cout << "Need Tyler's Code" << endl;
+                    mergeSortTempo(byArtist.getsongData(), 0, byArtist.getsongData().size()-1);
+                    cout << "Sorted by tempo -" << endl;
+                    for (int i = 0; i < stoi(menu.songNum) && i < byArtist.getsongData().size(); i++) {
+                        cout << i+1 << ". " << byArtist.getsongData()[i]->artist_name << " | Song: " << byArtist.getsongData()[i]->title << " | Tempo:" << byArtist.getsongData()[i]->tempo << endl;
+                    }
+                    cout << endl;
                 }
+                if (stoi(menu.songNum) > byArtist.getsongData().size()) {
+                    cout << "This Artist only has " << songCount << " songs." << endl;
+                }
+                cout << endl;
             }
         }
         else if (menu.introSelection == "CATALOG") {
             cout << "Search by..." << endl << menu.getcatalogAttributeMenu();
             cin >> menu.attributeSelection;
+            while (menu.attributeSelection != "1" && menu.attributeSelection != "2" && menu.attributeSelection != "3" && menu.attributeSelection != "4" && menu.attributeSelection != "5") {
+                cout << "Not a valid selection, try again!" << endl;
+                cin >> menu.attributeSelection;
+            }
             cout << "How many songs?" << ' ';
             cin >> menu.songNum;
-            while (stoi(menu.songNum) > 200) {
+            while (!menu.isNumber(menu.songNum) || stoi(menu.songNum) > 200) {
                 cout << "\nSong number must be less than 200! \nHow many songs? " << endl;
                 cin >> menu.songNum;
             }
             cout << "MERGE or QUICK (sort)" << ' ';
             cin >> menu.sortType;
-
+            while (menu.sortType != "MERGE" && menu.sortType != "QUICK") {
+                cout << "Not a valid sort, enter MERGE or QUICK and try again!" << endl;
+                cin >> menu.sortType;
+            }
             // display results
             if (menu.attributeSelection == "1") {
                 if (menu.sortType == "QUICK") {
@@ -176,8 +237,13 @@ int main() {
                     }
                     cout << endl;
                 }
-                else if (menu.sortType == "Merge") {
-                    cout << "Need Tyler's code" << endl;
+                else if (menu.sortType == "MERGE") {
+                    mergeSortSongHotness(songBase.getsongData(), 0, songBase.getsongData().size()-1);
+                    cout << "Sorted by Song Hotness -" << endl;
+                    for (int i = 0; i < stoi(menu.songNum) && i < songBase.getsongData().size(); i++) {
+                        cout << i+1 << ". " << songBase.getsongData()[i]->artist_name << " | Song: " << songBase.getsongData()[i]->title << " | Song Hotness:" << songBase.getsongData()[i]->song_hotttnesss << endl;
+                    }
+                    cout << endl;
                 }
             }
             else if (menu.attributeSelection == "2") {
@@ -195,8 +261,19 @@ int main() {
                     }
                     cout << endl;
                 }
-                else if (menu.sortType == "Merge") {
-                    cout << "Need Tyler's code" << endl;
+                else if (menu.sortType == "MERGE") {
+                    mergeSortArtistFamiliarity(songBase.getsongData(), 0, songBase.getsongData().size() - 1); //runs merge sort
+                    cout << "Sorted by Artist Familiarity -" << endl;
+                    int count = 0;
+                    vector<string> printed;
+                    for (int i = 0; i < songBase.getsongData().size() && count < stoi(menu.songNum); i++) {
+                        if (find(printed.begin(), printed.end(), songBase.getsongData()[i]->artist_name) == printed.end()) {
+                            cout << count+1 << ". " << songBase.getsongData()[i]->artist_name << " | Song Title: " << songBase.getsongData()[i]->title << " | Artist Familiarity: " << songBase.getsongData()[i]->artist_familiarity << endl;
+                            count++;
+                            printed.push_back(songBase.getsongData()[i]->artist_name);
+                        }
+                    }
+                    cout << endl;
                 }
             }
             else if (menu.attributeSelection == "3") {
@@ -212,10 +289,20 @@ int main() {
                             printed.push_back(songBase.getsongData()[i]->artist_name);
                         }
                     }
-                    cout << endl;
                 }
                 else if (menu.sortType == "MERGE") {
-                    cout << "Need Tyler's code" << endl;
+                    mergeSortArtistHotness(songBase.getsongData(), 0, songBase.getsongData().size()-1);
+                    cout << "Sorted by Artist Hotness -" << endl;
+                    int count = 0;
+                    vector<string> printed;
+                    for (int i = 0; i < songBase.getsongData().size() && count < stoi(menu.songNum); i++) {
+                        if (find(printed.begin(), printed.end(), songBase.getsongData()[i]->artist_name) == printed.end()) {
+                            cout << count+1 << ". " << songBase.getsongData()[i]->artist_name << " | Song Title: " << songBase.getsongData()[i]->title << " | Artist Hotness:" << songBase.getsongData()[i]->artist_hotttnesss << endl;
+                            count++;
+                            printed.push_back(songBase.getsongData()[i]->artist_name);
+                        }
+                    }
+                    cout << endl;
                 }
             }
             else if (menu.attributeSelection == "4") {
@@ -228,7 +315,19 @@ int main() {
                     cout << endl;
                 }
                 else if (menu.sortType == "MERGE") {
-                    cout << "Need Tyler's code" << endl;
+                    mergeSortYear(songBase.getsongData(), 0, songBase.getsongData().size()-1);
+                    cout << "Sorted by Year -" << endl;
+                    int num=1;
+                    int max = stoi(menu.songNum);
+                    for (int i=songBase.getsongData().size()-1; i>= songBase.getsongData().size()-max;i--) {
+                        if (songBase.getsongData()[i]->year == 0.0) {
+                            max++;
+                            continue;
+                        }
+                        cout << num << ". " << songBase.getsongData()[i]->artist_name << " | Song: " << songBase.getsongData()[i]->title << " | Year: " << songBase.getsongData()[i]->year << endl;
+                        num++;
+                    }
+                    cout << endl;
                 }
             }
             else if (menu.attributeSelection == "5") {
@@ -241,7 +340,12 @@ int main() {
                     cout << endl;
                 }
                 else if (menu.sortType == "MERGE") {
-                    cout << "Need Tyler's code" << endl;
+                    mergeSortTempo(songBase.getsongData(), 0, songBase.getsongData().size()-1);
+                    cout << "Sorted by Tempo -" << endl;
+                    for (int i = 0; i < stoi(menu.songNum); i++) {
+                        cout << i+1 << ". " << songBase.getsongData()[i]->artist_name << " | Song: " << songBase.getsongData()[i]->title << " | Tempo:" << songBase.getsongData()[i]->tempo << endl;
+                    }
+                    cout << endl;
                 }
             }
         }
@@ -256,19 +360,4 @@ int main() {
             return 0;
         }
     }
-
 }
-/*
-mergeSortArtistFamiliarity(songBase.getsongData(), 0, songBase.getsongData().size() - 1); //runs merge sort
-                cout << "Sorted by Artist Familiarity -" << endl;
-                int count = 0;
-                vector<string> printed;
-                for (int i = 0; i < songBase.getsongData().size() && count < stoi(menu.songNum); i++)   {
-                    if (find(printed.begin(), printed.end(), songBase.getsongData()[i]->artist_name) == printed.end()) {
-                    cout << count+1 << ". " << songBase.getsongData()[i]->artist_name << " | Song Title: " << songBase.getsongData()[i]->title << " | Artist Familiarity: " << songBase.getsongData()[i]->artist_familiarity << endl;
-                    count++;
-                    printed.push_back(songBase.getsongData()[i]->artist_name);
-                    }
-                }
-                cout << endl;
- */

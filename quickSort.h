@@ -171,7 +171,6 @@ int quickSortSongHotness(vector<songData*>& base, int low, int high) {
     if (low < high) {
         int pi = partitionSongHotness(base, low, high);
         if (pi == -1) {
-            cout << "Unknown song hotness from this Artist!" << endl;
             return -1;
         }
         quickSortSongHotness(base, low, pi-1);
