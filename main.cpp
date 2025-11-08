@@ -29,7 +29,7 @@ int main() {
             getline(stream, token, ',');
             newRow->title = token;
             getline(stream, token, ',');
-            newRow->year = token;
+            newRow->year = stod(token);
             getline(stream, token, ',');
             newRow->artist_familiarity = stod(token);
             getline(stream, token, ',');
@@ -80,10 +80,35 @@ int main() {
                 if (menu.sortType == "QUICK") {
                     quickSortAlphabetical(byArtist.getsongData(), 0, byArtist.getsongData().size()-1);
                     cout << "Sorted Alphabetically -" << endl;
-                    for (int i = 0; i < stoi(menu.songNum); i++) {
+                    int songCount = 0;
+                    for (int i = 0; i < stoi(menu.songNum) && i < byArtist.getsongData().size(); i++) {
                         cout << i+1 << ". " << byArtist.getsongData()[i]->artist_name << " | Song: " << byArtist.getsongData()[i]->title << endl;
+                        songCount++;
+                    }
+                    if (stoi(menu.songNum) > byArtist.getsongData().size()) {
+                        cout << "This Artist only has " << songCount << " songs." << endl;
                     }
                     cout << endl;
+                }
+                else if (menu.sortType == "MERGE") {
+                    cout << "Need Tyler's Code" << endl;
+                }
+            }
+            else if (menu.attributeSelection == "2") {
+                if (menu.sortType == "QUICK") {
+                    int checker = quickSortYear(byArtist.getsongData(), 0, byArtist.getsongData().size()-1);
+                    if (checker != -1) {
+                        cout << "Sorted by Year-" << endl;
+                        int songCount = 0;
+                        for (int i = 0; i < stoi(menu.songNum) && i < byArtist.getsongData().size(); i++) {
+                            cout << i+1 << ". " << byArtist.getsongData()[i]->artist_name << " | Song: " << byArtist.getsongData()[i]->title << " | Year: " << byArtist.getsongData()[i]->year << endl;
+                            songCount++;
+                        }
+                        if (stoi(menu.songNum) > byArtist.getsongData().size()) {
+                            cout << "This Artist only has " << songCount << " songs." << endl;
+                        }
+                        cout << endl;
+                    }
                 }
                 else if (menu.sortType == "MERGE") {
                     cout << "Need Tyler's Code" << endl;
@@ -93,8 +118,13 @@ int main() {
                 if (menu.sortType == "QUICK") {
                     quickSortTempo(byArtist.getsongData(), 0, byArtist.getsongData().size()-1);
                     cout << "Sorted by Tempo -" << endl;
-                    for (int i = 0; i < stoi(menu.songNum); i++) {
+                    int songcount = 0;
+                    for (int i = 0; i < stoi(menu.songNum) && i < byArtist.getsongData().size(); i++) {
                         cout << i+1 << ". " << byArtist.getsongData()[i]->artist_name << " | Song: " << byArtist.getsongData()[i]->title << " | Tempo:" << byArtist.getsongData()[i]->tempo << endl;
+                        songcount++;
+                    }
+                    if (stoi(menu.songNum) > byArtist.getsongData().size()) {
+                        cout << "This Artist only has " << songcount << " songs." << endl;
                     }
                     cout << endl;
                 }
@@ -166,6 +196,19 @@ int main() {
                         count++;
                         printed.push_back(songBase.getsongData()[i]->artist_name);
                     }
+                }
+                cout << endl;
+            }
+            else if (menu.sortType == "MERGE") {
+                cout << "Need Tyler's code" << endl;
+            }
+        }
+        else if (menu.attributeSelection == "4") {
+            if (menu.sortType == "QUICK") {
+                quickSortYear(songBase.getsongData(), 0, songBase.getsongData().size()-1);
+                cout << "Sorted by Year" << endl;
+                for (int i = 0; i < stoi(menu.songNum); i++) {
+                    cout << i+1 << ". " << songBase.getsongData()[i]->artist_name << " | Song: " << songBase.getsongData()[i]->title << " | Year:" << songBase.getsongData()[i]->year << endl;
                 }
                 cout << endl;
             }
