@@ -1,6 +1,7 @@
 #include "songBase.h"
 #include "menuText.h"
 #include "quickSort.h"
+#include "mergeSort.h"
 #include <fstream>
 #include <iostream>
 #include <sstream>
@@ -150,8 +151,19 @@ int main() {
                 }
                 cout << endl;
             }
-            else if (menu.sortType == "Merge") {
-                cout << "Need Tyler's code" << endl;
+            else if (menu.sortType == "MERGE") {
+                mergeSortArtistFamiliarity(songBase.getsongData(), 0, songBase.getsongData().size() - 1); //runs merge sort
+                cout << "Sorted by Artist Familiarity -" << endl;
+                int count = 0;
+                vector<string> printed;
+                for (int i = 0; i < songBase.getsongData().size() && count < stoi(menu.songNum); i++)   {
+                    if (find(printed.begin(), printed.end(), songBase.getsongData()[i]->artist_name) == printed.end()) {
+                    cout << count+1 << ". " << songBase.getsongData()[i]->artist_name << " | Song Title: " << songBase.getsongData()[i]->title << " | Artist Familiarity: " << songBase.getsongData()[i]->artist_familiarity << endl;
+                    count++;
+                    printed.push_back(songBase.getsongData()[i]->artist_name);
+                    }
+                }
+                cout << endl;
             }
         }
         else if (menu.attributeSelection == "3") {
