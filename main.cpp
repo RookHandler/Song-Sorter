@@ -1,6 +1,7 @@
 #include "songBase.h"
 #include "menuText.h"
 #include "quickSort.h"
+#include "mergeSort.h"
 #include <fstream>
 #include <iostream>
 #include <sstream>
