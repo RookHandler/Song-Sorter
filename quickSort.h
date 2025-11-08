@@ -78,11 +78,17 @@ void quickSortFamiliarity(vector<songData*>& base, int low, int high) {
 }
 
 int partitionSongHotness(vector<songData*>& base, int low, int high) {
-    double pivot = base[high]->song_hotttnesss;
+    double pivot = base[high]->year;
+    while (pivot == 0.0) {
+        high--;
+        pivot = base[high]->year;
+    }
     int i = low-1;
     for (int j = low; j < high; j++) {
-        double val = base[j]->song_hotttnesss;
-        if (base[j]->song_hotttnesss <= pivot) {
+        if (base[j]->year == 0.0) {
+            j++;
+        }
+        if (base[j]->year < pivot) {
             i++;
             swap(base[i], base[j]);
         }
@@ -120,3 +126,46 @@ void quickSortAlphabetical(vector<songData*>& base, int low, int high) {
         quickSortAlphabetical(base, pi+1, high);
     }
 }
+
+int partitionYear(vector<songData*>& base, int low, int high) {
+    double pivot = base[high]->year;
+    while (pivot == 0.0) {
+        high--;
+        if (high == -1) {
+            return -1;
+        }
+        pivot = base[high]->year;
+
+    }
+    if (high <= low) {
+        return low;
+    }
+    int i = low-1;
+    for (int j = low; j < high; j++) {
+        if (base[j]->year == 0.0) {
+            j++;
+            //continue;
+        }
+        if (base[j]->year < pivot) {
+            i++;
+            swap(base[i], base[j]);
+        }
+    }
+    swap(base[i+1], base[high]);
+    return (i+1);
+}
+
+int quickSortYear(vector<songData*>& base, int low, int high) {
+    if (low < high) {
+        int pi = partitionYear(base, low, high);
+        if (pi == -1) {
+            cout << "No songs with known years from this Artist!" << endl;
+            return -1;
+        }
+        quickSortYear(base, low, pi-1);
+        quickSortYear(base, pi+1, high);
+    }
+    return 0;
+}
+
+// need Merge sort alphabetical
