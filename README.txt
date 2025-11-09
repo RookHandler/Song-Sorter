@@ -14,5 +14,7 @@ Further more, the program will recognize an artists name from the data even if t
 
 
 
+(In the github directory, ignore the .vscode directory and the file name "main" with no type. Those aren't needed but we cannot figure out how to remove them)
 Thank you for viewing our project!
+
 
